@@ -1,0 +1,1 @@
+let nombreCompleto="Maria Belen"  //variable global
