@@ -76,7 +76,7 @@ class reservarEvento{
     }
     cotizarServicios(){
         let totalServicios = (this.invitados * 100 + this.servicioLanzaPapeles() + this.servicioTubosLed() + this.servicioBolaEspejada()) * this.formaPago()
-            console.log("El costo de los servicios adicionales incluidos es: $", totalServicios)
+            alert("El costo de los servicios adicionales incluidos es: $" + totalServicios)
     }
 }
 
