@@ -71,6 +71,11 @@ const producto2 = new Producto("Monitor", 200, 20);
 const producto3 = new Producto("Teclado", 50, 30);
 
 
+
+
+
+
+
 const factor = 31.98
 
 class CotizadorHogar{
@@ -87,6 +92,7 @@ class CotizadorHogar{
         }
     }
     cotizarPoliza(){
+        debugger
         const costoTotal = this.factor * this.metros2 * this.adicionalAlarma()
             console.log("El costo del seguro para su propiedad es: $", costoTotal.toFixed(2))
     }
@@ -99,4 +105,3 @@ function cotizarSeguro(){
     const cotizador = new CotizadorHogar(metros2, alarma, factor)
         cotizador.cotizarPoliza()
 }
-
