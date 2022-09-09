@@ -9,16 +9,30 @@
 <body>
     <script src="variables.js"></script>
     <script src="desafios.js"></script>
-    <script src="clase7_funcionesOrdenSuperior.js"></script>
-    <h1>DESAFÍOS Y ENTREGABLES CURSO JS CODER</h1>
-<!--     <h2>DESAFÍO NRO. 1</h2>
-    <p>En la consola, ejecutar la función: calculadora(), y completar los datos solicitados.</p> -->
-<!--     <h2>ENTREGABLE NRO. 1</h2>
-    <p>En la consola, ejecutar la función: cotizarEvento(), y completar los datos solicitados.</p> -->
+<!--     <h1>DESAFÍOS Y ENTREGABLES CURSO JS CODER</h1>
+    <h2>DESAFÍO NRO. 1</h2>
+    <p>En la consola, ejecutar la función: calculadora(), y completar los datos solicitados.</p>
+    <h2>ENTREGABLE NRO. 1</h2>
+    <p>En la consola, ejecutar la función: cotizarEvento(), y completar los datos solicitados.</p>
     <h2>DESAFÍO COMPLEMENTARIO NRO.1</h2>
-    <p>Al presionar los botones, los resultados se mostrarán por consola</p>
-    <button class="button" onclick="listarServicios()">SERVICIOS DISPONIBLES</button>
-    <button class="button" onclick="agregarServicio()">AGREGAR SERVICIO</button>
-    <button class="button" onclick="sacarServicio()">SACAR SERVICIO</button>
+    <p>Al presionar los botones, los resultados se mostrarán por consola</p> -->
+
+    <h1>Servicios disponibles para tu evento</h1>
+<p>El resultado de la funcion Filtrar Servicios se mostrará por consola</p>
+    <table>
+        <thead>
+            <tr>
+                <th>SERVICIO</th>
+                <th>IMPORTE</th>
+                <th>PRECIO FINAL</th>
+            </tr>
+        </thead>
+        <tbody id="tabla">
+        </tbody>
+    </table>
+
+    <button class="button" onclick="listarServicios()">LISTADO DE SERVICIOS</button>
+    <button class="button" onclick="generarServicios()">AGREGAR SERVICIOS</button>
+    <button class="button" onclick="filtrarServicios()">FILTRAR SERVICIOS</button>
 </body>
 </html>
