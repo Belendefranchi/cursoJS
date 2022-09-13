@@ -113,6 +113,7 @@ function cotizarEvento(){
             console.warn("El servicio ingresado ya existe en el listado")
         }
 }
+*/
 
 function sacarServicio(){
     let elemento = prompt("Ingresa el servicio que deseas quitar:")
@@ -124,7 +125,7 @@ function sacarServicio(){
     }else{
         console.warn("No se ha encontrado el servicio:", elemento)
     }
-} */
+} 
 
 
 
@@ -163,6 +164,22 @@ function nuevosServicios(){
     servicios.push(new Servicio("Sonido Line Array", 1800))
 }
 
+nuevosServicios()
+
+let tabla = document.createElement("table");
+tabla.innerHTML = `<thead>
+                        <tr>
+                            <th>DESCRIPCION</th>
+                            <th>IMPORTE</th>
+                            <th>IVA</th>
+                            <th>IMPORTE FINAL</th>
+                        </tr>
+                    </thead>
+                    <tbody id='tabla'>
+
+                    </tbody>`;
+
+document.body.append(tabla);
 
 function generarServicios(){
     let fila = ""
@@ -171,17 +188,18 @@ function generarServicios(){
         fila = `<tr>
                 <td>${servicio.nombre}</td>
                 <td>${servicio.importe}</td>
+                <td>${(IVA-1).toFixed(2)}</td>
                 <td>${servicio.precioFinal()}</td>
                 </tr>`
         tabla.innerHTML += fila
         })
     }
     
-nuevosServicios()
-
 
 function filtrarServicios(){
     let valor = parseInt(prompt("Ingresa el valor máximo que deseas pagar por un servicio:"))
     const valorMax = servicios.filter((servicio) => (servicio.importe*IVA) < valor)
     console.table(valorMax)
 }
+
+generarServicios()
