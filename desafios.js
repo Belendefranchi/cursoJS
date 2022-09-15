@@ -206,7 +206,6 @@ const inputBuscar = document.querySelector("input")
 
 
 function buscarServicios() {
-    /* debugger */
     inputBuscar.value = inputBuscar.value.trim().toUpperCase()
     if (inputBuscar.value !== "") {
         const resultado = servicios.filter(servicio => servicio.nombre.includes(inputBuscar.value))
