@@ -33,7 +33,7 @@ function calcular(num1, num2, ope){
 
 /* #############  DESAFIO NRO. 1  ############# */
 
-class reservarEvento{
+/* class reservarEvento{
     constructor(invitados, lanzaPapeles, tubosLed, bolaEspejada, pago){
         this.invitados = parseInt(invitados)
         this.lanzaPapeles = lanzaPapeles
@@ -78,9 +78,9 @@ class reservarEvento{
         let totalServicios = (this.invitados * 100 + this.servicioLanzaPapeles() + this.servicioTubosLed() + this.servicioBolaEspejada()) * this.formaPago()
             alert("El costo de los servicios adicionales incluidos es: $" + totalServicios)
     }
-}
+} */
 
-function cotizarEvento(){
+/* function cotizarEvento(){
     let invitados = prompt("Ingresa la cantidad de invitados:")
     let lanzaPapeles = confirm("Incluir Lanzapapeles? Costo $ 10")
     let tubosLed = confirm("Incluir tubos LED? Costo $ 20")
@@ -88,7 +88,7 @@ function cotizarEvento(){
     let pago = prompt("Ingrese la forma de pago: (efectivo, 3 cuotas, 6 cuotas, 9 cuotas)") 
     const evento = new reservarEvento(invitados, lanzaPapeles, tubosLed, bolaEspejada, pago)
         evento.cotizarServicios()
-}
+} */
 
 
 
@@ -115,7 +115,7 @@ function cotizarEvento(){
 }
 */
 
-function sacarServicio(){
+/* function sacarServicio(){
     let elemento = prompt("Ingresa el servicio que deseas quitar:")
     let indice = servicios.indexOf(elemento)
     if(indice > -1){
@@ -125,46 +125,14 @@ function sacarServicio(){
     }else{
         console.warn("No se ha encontrado el servicio:", elemento)
     }
-} 
+} */
 
-
-
-
-/* #############  PRE ENTREGA NRO.1  ############# */
-
-const IVA = 1.21
-
-class Servicio {
-    constructor(nombre, importe) {
-        this.nombre = nombre
-        this.importe = importe
-    }
-    precioFinal() {
-        return '$ ' + parseFloat((this.importe * IVA).toFixed(2))
-    }
-}
+/* ########################################################################################## */
 
 const servicios = []
-
-function listarServicios() {
-    servicios.forEach((servicio) => {
-        console.log(servicio)
-    })
-}
-
-function nuevosServicios(){
-    servicios.push(new Servicio("Lanza papeles", 1000))
-    servicios.push(new Servicio("Bola espejada", 1100))
-    servicios.push(new Servicio("Tubos led", 1200))
-    servicios.push(new Servicio("Pantalla led", 1300))
-    servicios.push(new Servicio("Iluminación Beam 7R", 1400))
-    servicios.push(new Servicio("Tachos led RGBWA+UV", 1500))
-    servicios.push(new Servicio("Móviles beam", 1600))
-    servicios.push(new Servicio("Consola digital", 1700))
-    servicios.push(new Servicio("Sonido Line Array", 1800))
-}
-
-nuevosServicios()
+const IVA = 1.21
+const tabla2 = document.getElementById("tabla")
+const filtroServicios = document.getElementById("search")
 
 let tabla = document.createElement("table");
 tabla.innerHTML = `<thead>
@@ -181,9 +149,43 @@ tabla.innerHTML = `<thead>
 
 document.body.append(tabla);
 
+
+class Servicio {
+    constructor(nombre, importe) {
+        this.nombre = nombre
+        this.importe = importe
+    }
+    precioFinal() {
+        return '$ ' + parseFloat((this.importe * IVA).toFixed(2))
+    }
+}
+
+function listarServicios() {
+    servicios.forEach((servicio) => {
+        console.log(servicio)
+    })
+}
+
+let btnListar = document.getElementById("listar");
+btnListar.addEventListener("click", listarServicios);
+
+
+function nuevosServicios(){
+    servicios.push(new Servicio("Lanza papeles", 1000))
+    servicios.push(new Servicio("Bola espejada", 1100))
+    servicios.push(new Servicio("Tubos led", 1200))
+    servicios.push(new Servicio("Pantalla led", 1300))
+    servicios.push(new Servicio("Iluminación Beam 7R", 1400))
+    servicios.push(new Servicio("Tachos led RGBWA+UV", 1500))
+    servicios.push(new Servicio("Móviles beam", 1600))
+    servicios.push(new Servicio("Consola digital", 1700))
+    servicios.push(new Servicio("Sonido Line Array", 1800))
+}
+
+nuevosServicios()
+
 function generarServicios(){
     let fila = ""
-    /* debugger */
     servicios.forEach(servicio => {
         fila = `<tr>
                 <td>${servicio.nombre}</td>
@@ -194,7 +196,33 @@ function generarServicios(){
         tabla.innerHTML += fila
         })
     }
-    
+
+generarServicios(servicios)
+
+let btnGenerar = document.getElementById("generar");
+btnGenerar.addEventListener("click", generarServicios);
+
+const inputBuscar = document.querySelector("input")
+
+
+function buscarServicios() {
+    /* debugger */
+    inputBuscar.value = inputBuscar.value.trim().toUpperCase()
+    if (inputBuscar.value !== "") {
+        const resultado = servicios.filter(servicio => servicio.nombre.includes(inputBuscar.value))
+            if (resultado.length === 0) {
+                console.clear()
+                console.warn("No se encontraron servicios")
+                generarServicios(servicios)
+            } else {
+                generarServicios(resultado)
+            }
+    } else {
+        generarServicios(servicios)
+    }
+}
+
+inputBuscar.addEventListener("input", buscarServicios)
 
 function filtrarServicios(){
     let valor = parseInt(prompt("Ingresa el valor máximo que deseas pagar por un servicio:"))
@@ -202,4 +230,5 @@ function filtrarServicios(){
     console.table(valorMax)
 }
 
-generarServicios()
+let btnFiltrar = document.getElementById("filtrar");
+btnFiltrar.addEventListener("click", filtrarServicios);
