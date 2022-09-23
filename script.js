@@ -55,7 +55,7 @@ const updateCart = (cart)=>{
     let table = document.createElement('table');
     table.setAttribute('id', 'cartContainer');
     table.setAttribute('class', 'cart')
-    table.innerHTML = ` 
+    table.innerHTML = ` <h2 class="title">Servicios agregados al carrito:</h2>
                         <table>
                             <thead>
                                 <tr class="row">
