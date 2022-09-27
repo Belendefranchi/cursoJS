@@ -43,9 +43,10 @@ let Services = [
     },
 ]
 
-const cart = [];
+let cart = [];
 
 const updateCart = (cart)=>{
+    //leemos la seccion cart que contendrá los servicios cargados al carrito
     let cartContainer = document.querySelector('#cart');
     let container = document.querySelector('#cartContainer');
     if (container){
@@ -73,16 +74,31 @@ const updateCart = (cart)=>{
 }
 
 const loadEvents = ()=>{
+    
+    let oldCart = JSON.parse(localStorage.getItem("cartList"))
+    
+    if (oldCart){
+        cart = oldCart
+    }
+
+    //leemos todos los botones para escuchar el click
     let btns = document.querySelectorAll('.btn');
     console.log (btns);
+    //escuchamos el click de cada boton de agregar del array
     for (const btn of btns){
         btn.addEventListener('click', ()=>{
+            //comparamos el id del boton con el id del servicio en el array cart
             let serv = cart.find (service => service.id == btn.id);
+            //si coincide, significa que el servicio ya estaba agregado al carrito
             if(serv){
+                //debemos aumentar la cantidad al servicio seleccionado en una unidad
                 serv.quantity++;
             }else{
+            //comparamos el id del boton con el id del servicio en el array servicios
                 let serv = Services.find (service => service.id == btn.id);
+                //si coincide, significa que ese servicio todavia no habia sido agregado al carrito
                 if(serv){
+                    //creamos nuevamente el servicio, pero agregando la propiedad cantidad, que inicializa en 1 unidad
                     let newServ = {
                         id: serv.id,
                         name: serv.name,
@@ -95,11 +111,16 @@ const loadEvents = ()=>{
                 }
             }
             updateCart(cart);
+
+            const saveLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
+    
+            saveLocal("cartList", JSON.stringify(cart));
         })
     }
 }
 
 const loadServices = (Services)=>{
+    //leemos la seccion container, que contiene el array de servicios
     let container = document.querySelector('#container');
     console.log('container: ', container);
     for (const service of Services){
@@ -121,7 +142,7 @@ loadServices(Services);
 
 
 
-function buscarServicios() {
+/* function buscarServicios() {
     inputBuscar.value = inputBuscar.value.trim().toUpperCase()
     if (inputBuscar.value !== "") {
         const resultado = servicios.filter(servicio => servicio.nombre.includes(inputBuscar.value))
@@ -146,7 +167,7 @@ function filtrarServicios(){
 }
 
 let btnFiltrar = document.getElementById("filtrar");
-btnFiltrar.addEventListener("click", filtrarServicios);
+btnFiltrar.addEventListener("click", filtrarServicios); */
 
 
 
