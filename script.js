@@ -56,27 +56,17 @@ const updateCart = (cart)=>{
     table.setAttribute('id', 'cartContainer');
     table.setAttribute('class', 'cart')
     table.innerHTML = ` <h2 class="title">Servicios agregados al carrito:</h2>
-                        <table>
-                            <thead>
-                                <tr class="row">
-                                    <td><h3 class="p thead">Nombre</h3></td>
-                                    <td><h3 class="p thead">Cantidad</h3></td>
-                                    <td><h3 class="p thead">Precio</h3></td>
-                                    <td><h3 class="p thead">Total</h3></td>
-                                </tr>
-                            </thead>
+                        <td><h3 class="p thead">Nombre</h3></td>
+                        <td><h3 class="p thead">Cantidad</h3></td>
+                        <td><h3 class="p thead">Precio</h3></td>
+                        <td><h3 class="p thead">Total</h3></td>
                     `;
     for (const serv of cart){
         table.innerHTML += `
-                                <tbody>                   
-                                    <tr class="row">
-                                        <td><h4 class="p tbody">${serv.name}</h4></td>
-                                        <td><h4 class="p">${serv.quantity}</h4></td>
-                                        <td><h4 class="p">$${serv.price}</h4></td>
-                                        <td><h4 class="p">$${serv.price*serv.quantity}</h4></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <td><h4 class="p tbody">${serv.name}</h4></td>
+                            <td><h4 class="p">${serv.quantity}</h4></td>
+                            <td><h4 class="p">$${serv.price}</h4></td>
+                            <td><h4 class="p">$${serv.price*serv.quantity}</h4></td>
                         `;
     }
     cartContainer.appendChild(table);
@@ -117,8 +107,8 @@ const loadServices = (Services)=>{
         div.setAttribute('class', 'card');
         div.innerHTML = `
             <img class="img" src="${service.image}" alt="${service.name}">
-            <h3>$${service.price}</h3>
-            <h4>${service.id}. ${service.name}</h4>
+            <h4>$${service.price}</h4>
+            <h5 style="padding-bottom: 2rem">${service.id}. ${service.name}</h5>
             <p>${service.description}</p>
             <button class="btn" id="${service.id}">Agregar al carrito</button>
         `;
@@ -131,7 +121,32 @@ loadServices(Services);
 
 
 
+function buscarServicios() {
+    inputBuscar.value = inputBuscar.value.trim().toUpperCase()
+    if (inputBuscar.value !== "") {
+        const resultado = servicios.filter(servicio => servicio.nombre.includes(inputBuscar.value))
+            if (resultado.length === 0) {
+                console.clear()
+                console.warn("No se encontraron servicios")
+                generarServicios(servicios)
+            } else {
+                generarServicios(resultado)
+            }
+    } else {
+        generarServicios(servicios)
+    }
+}
 
+inputBuscar.addEventListener("input", buscarServicios)
+
+function filtrarServicios(){
+    let valor = parseInt(prompt("Ingresa el valor máximo que deseas pagar por un servicio:"))
+    const valorMax = servicios.filter((servicio) => (servicio.importe*IVA) < valor)
+    console.table(valorMax)
+}
+
+let btnFiltrar = document.getElementById("filtrar");
+btnFiltrar.addEventListener("click", filtrarServicios);
 
 
 
