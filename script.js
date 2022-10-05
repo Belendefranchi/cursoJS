@@ -45,7 +45,7 @@ let Services = [
 
 let cart = [];
 
-const updateCart = (cart)=>{
+const updateCart = ()=>{
     //leemos la seccion cart que contendrá los servicios cargados al carrito
     let cartContainer = document.querySelector('#cart');
     let container = document.querySelector('#cartContainer');
@@ -61,6 +61,7 @@ const updateCart = (cart)=>{
                         <td><h3 class="p thead">Cantidad</h3></td>
                         <td><h3 class="p thead">Precio</h3></td>
                         <td><h3 class="p thead">Total</h3></td>
+                        <td><button class="btnsCart btnEmpty" id="btnEmpty">Vaciar carrito</button></td>
                     `;
     for (const serv of cart){
         table.innerHTML += `
@@ -68,56 +69,18 @@ const updateCart = (cart)=>{
                             <td><h4 class="p">${serv.quantity}</h4></td>
                             <td><h4 class="p">$${serv.price}</h4></td>
                             <td><h4 class="p">$${serv.price*serv.quantity}</h4></td>
-                            <td><button class="btnE" id="btn${serv.id}">Eliminar</button></td>
+                            <td><button class="btnsCart btnDelete" id="${serv.id}">Eliminar</button></td>
                         `;
     }
     cartContainer.appendChild(table);
 }
 
-const btnEliminar = (id)=>{
-    let idE = cart.find(service => service.id == id);
-    let eliminar = cart.indexOf(idE,0)
-    cart.splice(eliminar,1)
-    localStorage.setItem("newCart", JSON.stringify(cart));
-    let filaE = document.getElementById(`btn${id}`)
-    console.log(filaE)
-    /* filaE.remove(); */
-}
-/* let btnsE = document.querySelectorAll('.btnE');
-    for (const btn of btnsE){
-        btn.addEventListener('click', ()=>{
-            let serv = cart.find (service => service.id == btn.id);
-            if(serv){
-                serv.quantity--;
-            }else{
-                let serv = Services.find (service => service.id == btn.id);
-                if(serv){
-                    let newServ = {
-                        id: serv.id,
-                        name: serv.name,
-                        description: serv.description,
-                        price: serv.price,
-                        image: serv.image,
-                        quantity: serv.quantity,
-                    }
-                    cart.push(newServ)
-                }
-            }
-            
-            console.log(cart);
-            updateCart(cart);
-        })
-    }
-} */
-
-
 const loadEvents = ()=>{
-    
     let oldCart = JSON.parse(localStorage.getItem("cartList"))
-    
-    //operador ternario
-    oldCart ? cart = oldCart : cart;
-
+    if (oldCart){
+        cart = oldCart
+    }
+    updateCart(cart);
     let btns = document.querySelectorAll('.btn');
     for (const btn of btns){
         btn.addEventListener('click', ()=>{
@@ -141,27 +104,32 @@ const loadEvents = ()=>{
             updateCart(cart);
 
             const saveLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
-    
             saveLocal("cartList", JSON.stringify(cart));
-            console.log(cart);
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'El servicio ha sido agregado al carrito',
+                showConfirmButton: false,
+                timer: 1500
+            })
         })
     }
-    btnEliminar();
 }
 
 const loadServices = (Services)=>{
+    /* debugger */
     let container = document.querySelector('#container');
-    console.log('container: ', container);
     for (const service of Services){
         let div = document.createElement('div');
         div.setAttribute('class', 'card');
         div.innerHTML = `
-            <img class="img" src="${service.image}" alt="${service.name}">
-            <h4>$${service.price}</h4>
-            <h5 style="padding-bottom: 2rem">${service.id}. ${service.name}</h5>
-            <p>${service.description}</p>
-            <button class="btn" id="${service.id}">Agregar al carrito</button>
-        `;
+                        <img class="img" src="${service.image}" alt="${service.name}">
+                        <h4>$${service.price}</h4>
+                        <h5 style="padding-bottom: 2rem">${service.id}. ${service.name}</h5>
+                        <p>${service.description}</p>
+                        <button class="btn" id="${service.id}">Agregar al carrito</button>
+                        `;
         container.appendChild(div);
     }
     loadEvents();
@@ -170,51 +138,49 @@ const loadServices = (Services)=>{
 loadServices(Services);
 
 
+const emptyCart = ()=>{
+    Swal.fire({
+        title: 'Estas seguro de querer vaciar el carrito?',
+        text: "Si te arrepientes no podrás deshacerlo!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, vaciar el carrito!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            cart = [];
+            updateCart(cart);
+            localStorage.removeItem('cartList');
+            Swal.fire(
+                'Vaciado!',
+                'Tu carrito ahora esta vacío',
+                'success'
+            )
+        }
+    })
+}
 
-/* function buscarServicios() {
-    inputBuscar.value = inputBuscar.value.trim().toUpperCase()
-    if (inputBuscar.value !== "") {
-        const resultado = servicios.filter(servicio => servicio.nombre.includes(inputBuscar.value))
-            if (resultado.length === 0) {
-                console.clear()
-                console.warn("No se encontraron servicios")
-                generarServicios(servicios)
-            } else {
-                generarServicios(resultado)
-            }
-    } else {
-        generarServicios(servicios)
+const btnEmptyCart = document.querySelector('#btnEmpty');
+btnEmptyCart.addEventListener('click', emptyCart);
+
+
+/* const deleteBtn = ()=>{
+    debugger
+    let btnsDel = document.querySelectorAll('.btnDelete');
+    for (const btn of btnsDel){
+        btn.addEventListener('click', ()=>{
+            let idDel = cart.find (service => service.id == btn.id);
+            let del = cart.indexOf(idDel,0);
+            cart.splice(del,1);
+            let rowDel = document.getElementById(btn.id);
+            console.log(rowDel);
+            rowDel.remove();
+            localStorage.setItem("cartList", JSON.stringify(cart));
+        })
     }
 }
 
-inputBuscar.addEventListener("input", buscarServicios)
+const btnDeleteItem = document.querySelector('#btnDelete');
+btnDeleteItem.addEventListener('click', deleteBtn); */
 
-function filtrarServicios(){
-    let valor = parseInt(prompt("Ingresa el valor máximo que deseas pagar por un servicio:"))
-    const valorMax = servicios.filter((servicio) => (servicio.importe*IVA) < valor)
-    console.table(valorMax)
-}
-
-let btnFiltrar = document.getElementById("filtrar");
-btnFiltrar.addEventListener("click", filtrarServicios); */
-
-
-
-
-
-
-
-
-
-
-
-/* class Servicio {
-    constructor(nombre, importe) {
-        this.nombre = nombre
-        this.importe = importe
-    }
-    precioFinal() {
-        return '$ ' + parseFloat((this.importe * IVA).toFixed(2))
-    }
-} 
-*/

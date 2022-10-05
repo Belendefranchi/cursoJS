@@ -58,7 +58,7 @@ main{
     transform: scale(110%, 110%);
 }
 
-.btnE{
+.btnsCart{
     margin: 0.1rem;
     padding: 0.3rem;
     border-radius: 4px;
@@ -67,11 +67,12 @@ main{
     box-shadow: 0.4rem 0.4rem 1rem gray;
 }
 
-.btnE:hover{
+.btnsCart:hover{
     background-color: white;
     border-color: white;
     color: black;
 }
+
 
 table{
     display: inline-block !important;
@@ -90,3 +91,14 @@ table{
     text-align: left;
 }
 
+
+
+
+
+
+
+
+
+/* 
+//operador ternario
+oldCart ? cart = oldCart : cart; */
