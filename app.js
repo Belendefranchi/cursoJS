@@ -1,52 +1,10 @@
-let Services = [
-    {
-        id:1,
-        name: 'Lanza Papeles',
-        description: '',
-        price: '1000',
-        image: 'resources/images/lanza.jpg'
-    },
-    {
-        id:2,
-        name: 'Bola espejada',
-        description: '',
-        price: '1100',
-        image: 'resources/images/bola.jpg'
-    },
-    {
-        id:3,
-        name: 'Pantalla Led',
-        description: '',
-        price: '1200',
-        image: 'resources/images/pantalla.jpg'
-    },
-    {
-        id:4,
-        name: 'Tubos Led',
-        description: '',
-        price: '1300',
-        image: 'resources/images/tubos.jpg'
-    },
-    {
-        id:5,
-        name: 'Iluminación Beam 7R',
-        description: '',
-        price: '1400',
-        image: 'resources/images/beam.jpg'
-    },
-    {
-        id:6,
-        name: 'Pixel Ball',
-        description: '',
-        price: '1500',
-        image: 'resources/images/pixel.jpg'
-    },
-]
-
-let cart = [];
+const container = document.querySelector(".container")
+const URL = "services.json"
+let services = []
+let cart = []
+let contentHTML = ""
 
 const updateCart = (cart)=>{
-    //leemos la seccion cart que contendrá los servicios cargados al carrito
     let cartContainer = document.querySelector('#cart');
     let container = document.querySelector('#cartContainer');
     if (container){
@@ -89,7 +47,7 @@ const loadEvents = ()=>{
             if(serv){
                 serv.quantity++;
             }else{
-                let serv = Services.find (service => service.id == btn.id);
+                let serv = services.find (service => service.id == btn.id);
                 if(serv){
                     let newServ = {
                         id: serv.id,
@@ -120,7 +78,35 @@ const loadEvents = ()=>{
     }
 }
 
-const deleteItem = (id)=>{
+const showCard = (content)=> {
+    const {id, name, price, image} = content
+    return `<div class="card">
+                <img class="img" src="${image}" alt="${name}">
+                <h4>$${price}</h4>
+                <h5 style="padding-bottom: 2rem">${id}. ${name}</h5>
+                <button class="btn" id="${id}">Agregar al carrito</button>
+            </div>`
+}
+
+const loadContent = async ()=> {
+    try {
+        const response = await fetch(URL)
+        const data = await response.json()
+            console.table(data)
+            services = data
+            services.forEach(element => contentHTML += showCard(element))
+    } catch(error) {
+        console.error("Se ha producido un error", error)
+    } finally {
+        container.innerHTML = contentHTML
+        loadEvents()
+    }
+}
+
+loadContent();
+
+
+const deleteItem = ()=>{
     let btnDeleteItem = document.querySelectorAll('.btnDelete');
     for (const btn of btnDeleteItem){
         btn.addEventListener('click', ()=>{
@@ -131,28 +117,8 @@ const deleteItem = (id)=>{
     }
 }
 
-const loadServices = (Services)=>{
-    let container = document.querySelector('#container');
-    for (const service of Services){
-        let div = document.createElement('div');
-        div.setAttribute('class', 'card');
-        div.innerHTML = `
-                        <img class="img" src="${service.image}" alt="${service.name}">
-                        <h4>$${service.price}</h4>
-                        <h5 style="padding-bottom: 2rem">${service.id}. ${service.name}</h5>
-                        <p>${service.description}</p>
-                        <button class="btn" id="${service.id}">Agregar al carrito</button>
-                        `;
-        container.appendChild(div);
-    }
-    loadEvents();
-    deleteItem();
-}
-
-loadServices(Services);
-
-
 const emptyCart = ()=>{
+    debugger
     Swal.fire({
         title: 'Estas seguro de querer vaciar el carrito?',
         text: "Si te arrepientes no podrás deshacerlo!",
@@ -177,7 +143,3 @@ const emptyCart = ()=>{
 
 const btnEmptyCart = document.querySelector('.btnEmpty');
 btnEmptyCart.addEventListener('click', emptyCart);
-
-
-/* agregar boton de comprar, que saque un cartel o lleve a otra pagina
-deonde se agradece la compra y se vacie el carrito */
