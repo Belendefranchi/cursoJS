@@ -4,11 +4,19 @@ const checkOut = ()=> {
     const btn = document.querySelector('#checkout')
     btn.addEventListener('click', ()=> {
         localStorage.removeItem('cartList');
+/*         alert('Muchas gracias por tu compra!') */
         Swal.fire({
-            position: 'top-end',
+            title: 'Muchas gracias por tu compra!',
+            text: "Vuelve pronto!",
             icon: 'success',
-            title: 'Gracias por realizar tu compra!',
-            showConfirmButton: true,
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Acpetar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            location.reload(true);
+            }
         })
     })
 }
