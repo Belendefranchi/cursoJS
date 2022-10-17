@@ -1,10 +1,16 @@
 let cart = JSON.parse(localStorage.getItem('cartList')) || [];
 
+const setQuantity = () => {
+    const label = document.querySelector('#cartQuantity')
+    const totalQ = cart.reduce ((acc, item) => acc + item.quantity, 0)
+    label.innerText = totalQ;
+}
+
 const checkOut = ()=> {
     const btn = document.querySelector('#checkout')
     btn.addEventListener('click', ()=> {
         localStorage.removeItem('cartList');
-/*         alert('Muchas gracias por tu compra!') */
+
         Swal.fire({
             title: 'Muchas gracias por tu compra!',
             text: "Vuelve pronto!",
@@ -27,7 +33,7 @@ const updateCart = (cart)=>{
     if (container){
         container.parentNode.removeChild(container);
     }
-    
+
     let table = document.createElement('table');
     table.setAttribute('id', 'cartContainer');
     table.setAttribute('class', 'cart')
@@ -35,40 +41,47 @@ const updateCart = (cart)=>{
                         <td><h3 class="p thead">Nombre</h3></td>
                         <td><h3 class="p thead">Cantidad</h3></td>
                         <td><h3 class="p thead">Precio</h3></td>
-                        <td><h3 class="p thead">Total</h3></td>
-                        <td><button class="btnsCart btnEmpty" id="btnEmpty">Vaciar carrito</button></td>
-                    `;
+                        <td><h3 class="p thead">Subtotal</h3></td>
+                        <td><button class="btnsCart btnEmpty" id="btnEmpty">Vaciar carrito</button></td>`;
     for (const serv of cart){
-        table.innerHTML += `
-                            <td><h4 class="p tbody">${serv.name}</h4></td>
+        table.innerHTML += `<td><h4 class="p tbody">${serv.name}</h4></td>
                             <td><h4 class="p">${serv.quantity}</h4></td>
                             <td><h4 class="p">$${serv.price}</h4></td>
                             <td><h4 class="p">$${serv.price*serv.quantity}</h4></td>
-                            <td><button class="btnsCart btnDelete" id="${serv.id}">Eliminar</button></td>
-                        `;
+                            <td><button class="btnsCart btnDelete" id="${serv.id}">Eliminar</button></td>`;
     }
-    table.innerHTML += `<button class="btnsCart" id="checkout">Finalizar compra</button>`;
+
+    const totalQ = cart.reduce ((acc, item) => acc + item.quantity, 0)
+    const totalP = cart.reduce ((acc, item) => acc + item.price * item.quantity, 0)
+    
+    table.innerHTML += `<td><h3 class="p thead">Total:</h3></td>
+                        <td><h3 class="p thead">${totalQ}</h3></td>
+                        <td><h3 class="p thead">-</h3></td>
+                        <td><h3 class="p thead">$${totalP}</h3></td>
+                        <td><button class="btnsCart" id="checkout">Finalizar compra</button></td>`;
+    
     cartContainer.appendChild(table);
 }
 
 const cartL = JSON.parse(localStorage.getItem("cartList")) || [];
 updateCart(cartL);
+setQuantity();
 checkOut();
 
 
-/* const deleteItem = (id)=>{
-    let btnDeleteItem = document.querySelectorAll('.btnDelete');
+const btnDeleteItem = document.querySelectorAll('.btnDelete');   
     for (const btn of btnDeleteItem){
         btn.addEventListener('click', ()=>{
-            cart = cart.filter(service => service.id !== btn.id);
-            updateCart(cart);
-            localStorage.setItem("cartList", JSON.stringify(cart));
+            console.log("button id: ", btn.id)
+            let newCart = cartL.filter(service => service.id !== btn.id);
+            localStorage.setItem("cartList", JSON.stringify(newCart));
+            location.reload(true);
         })
     }
-} */
 
 
 const emptyCart = ()=>{
+
     Swal.fire({
         title: 'Estas seguro de querer vaciar el carrito?',
         text: "Si te arrepientes no podrás deshacerlo!",
@@ -79,15 +92,18 @@ const emptyCart = ()=>{
         confirmButtonText: 'Sí, vaciar el carrito!'
     }).then((result) => {
         if (result.isConfirmed) {
-            cart = [];
-            updateCart(cart);
             localStorage.removeItem('cartList');
-            Swal.fire(
-                'Vaciado!',
-                'Tu carrito ahora esta vacío',
-                'success'
-            )
-        }
+            Swal.fire({
+                title: 'Vaciado!',
+                text: 'Tu carrito ahora esta vacío',
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Acpetar'
+            })
+            location.reload(true);
+        };
     })
 }
 

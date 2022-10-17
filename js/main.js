@@ -1,22 +1,19 @@
 const Services = [];
 let cart = JSON.parse(localStorage.getItem("cartList")) || [];
 
+const setQuantity = () => {
+    const label = document.querySelector('#cartQuantity')
+    const totalQ = cart.reduce ((acc, item) => acc + item.quantity, 0)
+    label.innerText = totalQ;
+}
 
 const loadEvents = ()=>{
-/*     let oldCart = JSON.parse(localStorage.getItem("cartList"))
-    if (oldCart){
-        cart = oldCart
-        //cart.push(oldCart);
-    }*/
-/*     updateCart(cart); */
-
-    let btns = document.querySelectorAll('.btn');
+    const btns = document.querySelectorAll('.btn');
     for (const btn of btns){
         btn.addEventListener('click', ()=>{
-            let serv = cart.find (service => service.id == btn.id);
+            const serv = cart.find (service => service.id == btn.id);
             if(serv){
                 serv.quantity++;
-/*                 localStorage.setItem("cartList", JSON.stringify("cartList")); */
             }else{
                 let serv = Services.find (service => service.id == btn.id);
                 if(serv){
@@ -29,11 +26,8 @@ const loadEvents = ()=>{
                         quantity: 1,
                     }
                     cart.push(newServ)
-/*                     localStorage.setItem("cartList", JSON.stringify("cartList")); */
                 }
             }
-/*             updateCart(cart); */
-            
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -41,7 +35,7 @@ const loadEvents = ()=>{
                 showConfirmButton: false,
                 timer: 800
             })
-
+            setQuantity();
             const saveLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
             saveLocal("cartList", JSON.stringify(cart));
         })
@@ -49,7 +43,7 @@ const loadEvents = ()=>{
 }
 
 const loadServices = (Services)=>{
-    let container = document.querySelector('#container');
+    const container = document.querySelector('#container');
     for (const service of Services){
         let div = document.createElement('div');
         div.setAttribute('class', 'card');
@@ -62,16 +56,18 @@ const loadServices = (Services)=>{
                         `;
         container.appendChild(div);
     }
+    setQuantity();
     loadEvents();
 }
 
 const getData = async () => {
     try{
-        const response = await fetch("services.json");
+        const response = await fetch("/bbdd/services.json");
         const data = await response.json();
         console.log(data);
         loadServices(data);
         Services.push(...data);
+        setQuantity();
     } catch (e){
         console.log(e);
     }
