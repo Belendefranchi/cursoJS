@@ -4,6 +4,7 @@
         "name": "Lanza Papeles",
         "description": "",
         "price": "1000",
+        "stock": 6,
         "image": "resources/images/lanza.jpg"
     },
     {
@@ -11,6 +12,7 @@
         "name": "Bola espejada",
         "description": "",
         "price": "1100",
+        "stock": 6,
         "image": "resources/images/bola.jpg"
     },
     {
@@ -18,6 +20,7 @@
         "name": "Pantalla Led",
         "description": "",
         "price": "1200",
+        "stock": 6,
         "image": "resources/images/pantalla.jpg"
     },
     {
@@ -25,6 +28,7 @@
         "name": "Tubos Led",
         "description": "",
         "price": "1300",
+        "stock": 6,
         "image": "resources/images/tubos.jpg"
     },
     {
@@ -32,6 +36,7 @@
         "name": "Iluminación Beam 7R",
         "description": "",
         "price": "1400",
+        "stock": 6,
         "image": "resources/images/beam.jpg"
     },
     {
@@ -39,6 +44,7 @@
         "name": "Pixel Ball",
         "description": "",
         "price": "1500",
+        "stock": 6,
         "image": "resources/images/pixel.jpg"
     }
 ]

@@ -52,7 +52,10 @@ const loadServices = (Services)=>{
                         <h4>$${service.price}</h4>
                         <h5 style="padding-bottom: 2rem">${service.id}. ${service.name}</h5>
                         <p>${service.description}</p>
-                        <button class="btn" id="${service.id}">Agregar al carrito</button>
+                        <div class="d-flex" style="background-color: red;">
+                            <input class="form-control" type="number" value="${service.quantity}"></input>
+                            <button class="btn" id="${service.id}">Agregar al carrito</button>
+                        </div>
                         `;
         container.appendChild(div);
     }
@@ -67,7 +70,6 @@ const getData = async () => {
         console.log(data);
         loadServices(data);
         Services.push(...data);
-        setQuantity();
     } catch (e){
         console.log(e);
     }
