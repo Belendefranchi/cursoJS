@@ -1,11 +1,3 @@
-let cart = JSON.parse(localStorage.getItem('cartList')) || [];
-
-const setQuantity = () => {
-    const label = document.querySelector('#cartQuantity')
-    const totalQ = cart.reduce ((acc, item) => acc + item.quantity, 0)
-    label.innerText = totalQ;
-}
-
 const checkOut = ()=> {
     const btn = document.querySelector('#checkout')
     btn.addEventListener('click', ()=> {
@@ -50,9 +42,6 @@ const updateCart = (cart)=>{
                             <td><h4 class="p">$${serv.price*serv.quantity}</h4></td>
                             <td><button class="btnsCart btnDelete" id="${serv.id}">Eliminar</button></td>`;
     }
-
-    const totalQ = cart.reduce ((acc, item) => acc + item.quantity, 0)
-    const totalP = cart.reduce ((acc, item) => acc + item.price * item.quantity, 0)
     
     table.innerHTML += `<td><h3 class="p thead">Total:</h3></td>
                         <td><h3 class="p thead">${totalQ}</h3></td>

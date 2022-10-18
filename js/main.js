@@ -1,12 +1,3 @@
-const Services = [];
-let cart = JSON.parse(localStorage.getItem("cartList")) || [];
-
-const setQuantity = () => {
-    const label = document.querySelector('#cartQuantity')
-    const totalQ = cart.reduce ((acc, item) => acc + item.quantity, 0)
-    label.innerText = totalQ;
-}
-
 const loadEvents = ()=>{
     const btns = document.querySelectorAll('.btn');
     for (const btn of btns){
@@ -42,21 +33,40 @@ const loadEvents = ()=>{
     }
 }
 
+/* const filterPrice = ()=> {
+    Services.sort((a, b) => {
+        if (filteredPrice.value === "lowerPrice") {
+            if (a.price > b.price)
+                return 1
+            if (a.price < b.price)
+                return -1
+            return 0
+        }
+        if (filteredPrice.value === "higherPrice") {
+            if (a.price > b.price)
+                return -1
+            if (a.price < b.price)
+                return 1
+            return 0
+        }
+    })
+    updateCart()
+} */
+
 const loadServices = (Services)=>{
     const container = document.querySelector('#container');
     for (const service of Services){
         let div = document.createElement('div');
         div.setAttribute('class', 'card');
-        div.innerHTML = `
-                        <img class="img" src="${service.image}" alt="${service.name}">
+        div.innerHTML = `<img class="img" src="${service.image}" alt="${service.name}">
                         <h4>$${service.price}</h4>
-                        <h5 style="padding-bottom: 2rem">${service.id}. ${service.name}</h5>
+                        <h5>${service.id}. ${service.name}</h5>
                         <p>${service.description}</p>
-                        <div class="d-flex" style="background-color: red;">
-                            <input class="form-control" type="number" value="${service.quantity}"></input>
-                            <button class="btn" id="${service.id}">Agregar al carrito</button>
-                        </div>
-                        `;
+                        <div class="d-flex justify-content-center align-items-center">
+                            <label class="">Cantidad:</label>
+                            <input class="form-control" type="number" value="${1}">
+                            <button class="btn" id="${service.id}">Agregar</button>
+                        </div>`;
         container.appendChild(div);
     }
     setQuantity();
@@ -65,7 +75,7 @@ const loadServices = (Services)=>{
 
 const getData = async () => {
     try{
-        const response = await fetch("services.json");
+        const response = await fetch("/bbdd/services.json");
         const data = await response.json();
         console.log(data);
         loadServices(data);

@@ -25,6 +25,7 @@ main{
 
 .a{
     padding-right: 20px;
+    text-decoration: none;
 }
 
 .box{
@@ -48,6 +49,11 @@ main{
     border-radius: 1rem;
     text-align: center;
     box-shadow: 0.1rem 0.8rem 1rem gray;
+}
+
+.card input{
+    width: 5rem;
+    margin: 0rem 0.8rem 0rem 0.8rem;
 }
 
 .img{
