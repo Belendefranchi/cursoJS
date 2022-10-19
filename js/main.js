@@ -1,13 +1,38 @@
 const filtered = document.getElementsByName("fil")
 
 const loadEvents = ()=>{
+
+    const qtys = document.querySelectorAll('.quantity');
     const btns = document.querySelectorAll('.btn');
-    for (const btn of btns){
-        btn.addEventListener('click', ()=>{
-            console.log(btn.id);
-            const qty = document.querySelector('.quantity').value;
-                    console.log(qty);
-                    const serv = cart.find (service => service.id == btn.id);
+    
+    for (const qty of qtys){
+        qty.addEventListener('click', ()=>{
+            console.log(qty.id);
+            const qtyId = Services.find (service => service.id == qty.id);
+            if(qtyId){
+                console.log(qtyId);
+                const qtyValue = document.getElementById(qty.id).value;
+                console.log(qtyValue);
+                for (const btn of btns){
+                    btn.addEventListener('click', ()=>{
+                        console.log(btn.id);
+                        const btnId = cart.find (service => service.id == btn.id);
+                        if(btnId){
+                            console.log(btnId);
+                        }
+                    })
+                }
+            }
+        });
+    }
+    
+    
+}
+    
+                    
+            
+            
+            /* const serv = cart.find (service => service.id == btn.id);
                     if(serv){
                         serv.quantity = parseInt(serv.quantity) + parseInt(qty);
                         console.log(serv.quantity);
@@ -35,13 +60,13 @@ const loadEvents = ()=>{
                     setQuantity();
                     const saveLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
                     saveLocal("cartList", JSON.stringify(cart));
-                })
-            }
-        }
+                    */
+                
+        
     
 
 
-/* const filterPrice = ()=> {
+const filterPricee = ()=> {
     Services.sort((a, b) => {
         if (filteredPrice.value === "lowerPrice") {
             if (a.price > b.price)
@@ -59,7 +84,7 @@ const loadEvents = ()=>{
         }
     })
     updateCart()
-} */
+}
 
 const loadServices = (Services)=>{
     const container = document.querySelector('#container');
@@ -115,9 +140,3 @@ const getData = async () => {
 }
 
 getData();
-
-/* loadServices(Services); */
-
-
-/* agregar boton de comprar, que saque un cartel o lleve a otra pagina
-deonde se agradece la compra y se vacie el carrito */
