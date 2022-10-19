@@ -1,7 +1,6 @@
 const filtered = document.getElementsByName("fil")
 
 const loadEvents = ()=>{
-    debugger;
     const btns = document.querySelectorAll('.btn');
     for (const btn of btns){
         btn.addEventListener('click', ()=>{
@@ -105,7 +104,7 @@ const filterPrice = () => {
 
 const getData = async () => {
     try{
-        const response = await fetch("/bbdd/services.json");
+        const response = await fetch("../bbdd/services.json");
         const data = await response.json();
         console.log(data);
         loadServices(data);
