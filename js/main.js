@@ -145,7 +145,7 @@ const filterPrice = () => {
                 return 1
             return 0
         }
-    })
+    }) 
     loadEvents();
 }
 
