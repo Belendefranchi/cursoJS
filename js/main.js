@@ -151,7 +151,7 @@ const filterPrice = () => {
 
 const getData = async () => {
     try{
-        const response = await fetch("./services.json");
+        const response = await fetch("/services.json");
         const data = await response.json();
         console.log(data);
         loadServices(data);
