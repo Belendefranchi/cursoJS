@@ -3,7 +3,7 @@ const checkOut = ()=> {
     btn.addEventListener('click', ()=> {
         localStorage.removeItem('cartList');
 
-        Swal.fire({
+/*         Swal.fire({
             title: 'Muchas gracias por tu compra!',
             text: "Vuelve pronto!",
             icon: 'success',
@@ -15,7 +15,7 @@ const checkOut = ()=> {
             if (result.isConfirmed) {
             location.reload(true);
             }
-        })
+        }) */
     })
 }
 
@@ -29,7 +29,7 @@ const updateCart = (cart)=>{
     let table = document.createElement('table');
     table.setAttribute('id', 'cartContainer');
     table.setAttribute('class', 'cart')
-    table.innerHTML = ` <h2 class="title">Servicios agregados al carrito:</h2>
+    table.innerHTML = ` <h1 class="title">Servicios agregados al carrito:</h1>
                         <td><h3 class="p thead">Nombre</h3></td>
                         <td><h3 class="p thead">Cantidad</h3></td>
                         <td><h3 class="p thead">Precio</h3></td>
@@ -47,7 +47,7 @@ const updateCart = (cart)=>{
                         <td><h3 class="p thead">${totalQ}</h3></td>
                         <td><h3 class="p thead">-</h3></td>
                         <td><h3 class="p thead">$${totalP}</h3></td>
-                        <td><button class="btnsCart" id="checkout">Finalizar compra</button></td>`;
+                        <td><a class="a" href="../pages/form.html"><button class="btnsCart" id="checkout">Finalizar compra</button></a></td>`;
     
     cartContainer.appendChild(table);
 }

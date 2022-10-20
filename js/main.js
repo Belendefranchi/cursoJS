@@ -13,25 +13,47 @@ const loadEvents = ()=>{
                 console.log(qtyId);
                 const qtyValue = document.getElementById(qty.id).value;
                 console.log(qtyValue);
-                for (const btn of btns){
-                    btn.addEventListener('click', ()=>{
-                        console.log(btn.id);
-                        const btnId = cart.find (service => service.id == btn.id);
-                        if(btnId){
-                            console.log(btnId);
-                        }
-                    })
+            }
+        })
+    }
+    for (const btn of btns){
+        btn.addEventListener('click', ()=>{
+            console.log(btn.id);
+            const btnId = cart.find (service => service.id == btn.id);
+            if(btnId){
+                console.log(btnId);
+                btnId.quantity = parseInt(btnId.quantity) + parseInt(qtyValue);
+                console.log(btnId.quantity);
+            }else{
+                const btnId = Services.find (service => service.id == btn.id);
+                if(btnId){
+                    let newServ = {
+                        id: btnId.id,
+                        name: btnId.name,
+                        description: btnId.description,
+                        price: btnId.price,
+                        image: btnId.image,
+                        quantity: 1,
+                    }
+                    cart.push(newServ)
+                    console.log(newServ);
                 }
             }
-        });
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'El servicio ha sido agregado al carrito',
+                showConfirmButton: false,
+                timer: 800
+            })
+            setQuantity();
+            const saveLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
+            saveLocal("cartList", JSON.stringify(cart));
+        })
     }
-    
-    
+
 }
-    
-                    
-            
-            
+
             /* const serv = cart.find (service => service.id == btn.id);
                     if(serv){
                         serv.quantity = parseInt(serv.quantity) + parseInt(qty);
@@ -129,7 +151,7 @@ const filterPrice = () => {
 
 const getData = async () => {
     try{
-        const response = await fetch("./bbdd/services.json");
+        const response = await fetch("../bbdd/services.json");
         const data = await response.json();
         console.log(data);
         loadServices(data);
