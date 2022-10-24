@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="../css/style.css">
     <!-- Scripts -->
     <script defer src="../js/variables.js"></script>
-    <script defer src="../js/main.js"></script>
+    <script defer src="../js/purchase.js"></script>
     <title>Carrito de compras</title>
 </head>
 <body>
     <header>
         <!------------------------------------ NAVEGACION -------------------------------------->
         <nav class="navbar navbar-expand-lg bg-light" aria-label="breadcrumb">
-            <div class="container-fluid" style="margin-right: 20px;">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="../index.html">
                     <img src="../resources/logos/logo_fondo_blanco_circulo-modified2.png" alt="valei oficial">
                 </a>
@@ -62,19 +62,90 @@
                         <label id="cartQuantity"></label>
                         <img src="../resources/icons/cart.png" alt="carrito">
                     </a>
-                    <form class="d-flex align-content-end" role="search">
-                        <input class="form-control me-2 align-content-end" type="search" placeholder="Buscá tu servicio" aria-label="Search">
-                        <button class="btn btn-outline-success align-items-end" type="submit">Buscar</button>
-                    </form>
                 </div>
             </div>
         </nav>
     </header>
     <main>
-        <h1 class="title">Finaliza tu compra</h1>   
-        <h2 class="title">Déjanos tus datos y nos pondremos en contacto para realizar la compra, muchas gracias!</h2>       
-        <section class="purchase" id="purchase">
-
+        <h1 class="title">!Muchas gracias tu compra!</h1>   
+        <h2 class="title">Déjanos tus datos y nos pondremos en contacto para finalizar la compra, muchas gracias!</h2>       
+        <section class="d-flex text-start align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col container purchase text-center" id="purchase">
+                        <img class="img-thumbnail" src="../resources/logos/redes.jpg" alt="">
+                    </div>
+                    <div class="col container">
+                        <form class="form row g-3">
+                            <div class="col-md-6 text-start fs-4">
+                                <label for="inputName" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="inputName" value="Fabian">
+                            </div>
+                            <div class="col-md-6 text-start fs-4">
+                                <label for="inputLastName" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="inputLastName" value="Moon">
+                            </div>
+                            <div class="col-md-6 text-start fs-4">
+                                <label for="inputEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="inputEmail" value="email@falso.com">
+                            </div>
+                            <div class="col-md-6 text-start fs-4">
+                                <label for="inputPhone" class="form-label">Nro. de teléfono</label>
+                                <input type="text" class="form-control" id="inputPhone" value="0303456">
+                            </div>
+                            <div class="col-12 text-start fs-4">
+                                <label for="inputAddress" class="form-label">Dirección de facturación</label>
+                                <input type="text" class="form-control" id="inputAddress" value="Calle Falsa 123">
+                            </div>
+                            <div class="col-12 text-start fs-4">
+                                <label for="inputAddress2" class="form-label">Dirección de entrega</label>
+                                <input type="text" class="form-control" id="inputAddress2" value="Calle Falsa 123">
+                            </div>
+                            <div class="col-md-6 text-start fs-4">
+                                <label for="inputCity" class="form-label">Ciudad</label>
+                                <input type="text" class="form-control" id="inputCity" value="Capital">
+                            </div>
+                            <div class="col-md-4 text-start fs-4">
+                                <label for="inputState" class="form-label">Provincia</label>
+                                <select id="inputState" class="form-select">
+                                    <option>Elegir</option>
+                                    <option selected>Buenos Aires</option>
+                                    <option>Ciudad Autónoma de Buenos Aires</option>
+                                    <option>Catamarca</option>
+                                    <option>Chaco</option>
+                                    <option>Chubut</option>
+                                    <option>Córdoba</option>
+                                    <option>Corrientes</option>
+                                    <option>Entre Ríos</option>
+                                    <option>Formosa</option>
+                                    <option>Jujuy</option>
+                                    <option>La Pampa</option>
+                                    <option>La Rioja</option>
+                                    <option>Mendoza</option>
+                                    <option>Misiones</option>
+                                    <option>Neuquén</option>
+                                    <option>Río Negro</option>
+                                    <option>Salta</option>
+                                    <option>San Juan</option>
+                                    <option>San Luis</option>
+                                    <option>Santa Cruz</option>
+                                    <option>Santa Fe</option>
+                                    <option>Santiago del Estero</option>
+                                    <option>Tierra del Fuego, Antártida e Islas del Atlántico Sur</option>
+                                    <option>Tucumán</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 text-start fs-4">
+                                <label for="inputZip" class="form-label text-start">CP.</label>
+                                <input type="text" class="form-control" id="inputZip" value="1234">
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="button" class="btnsCart" id="btnPurchase">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
     <!-- JavaScript Bundle with Popper -->

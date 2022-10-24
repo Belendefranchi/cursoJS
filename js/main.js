@@ -1,29 +1,27 @@
-const filtered = document.getElementsByName("fil")
-
 const loadEvents = ()=>{
 
-    const qtys = document.querySelectorAll('.quantity');
     const btns = document.querySelectorAll('.btn');
-    
-    for (const qty of qtys){
-        qty.addEventListener('click', ()=>{
-            console.log(qty.id);
-            const qtyId = Services.find (service => service.id == qty.id);
-            if(qtyId){
-                console.log(qtyId);
-                const qtyValue = document.getElementById(qty.id).value;
-                console.log(qtyValue);
-            }
-        })
-    }
     for (const btn of btns){
         btn.addEventListener('click', ()=>{
-            console.log(btn.id);
+
             const btnId = cart.find (service => service.id == btn.id);
             if(btnId){
-                console.log(btnId);
-                btnId.quantity = parseInt(btnId.quantity) + parseInt(qtyValue);
-                console.log(btnId.quantity);
+
+                const qtys = document.querySelectorAll('.quantity');
+                for (const qty of qtys){
+                    qty.addEventListener('click', ()=>{
+
+                        const qtyId = Services.find (service => service.id == qty.id);
+                        if(qtyId){
+
+                            const qtyValue = document.getElementById(qty.id).value;
+                            console.log(qtyValue);
+                            btnId.quantity += parseInt(qtyValue);
+
+                        }
+                    })
+                }
+                
             }else{
                 const btnId = Services.find (service => service.id == btn.id);
                 if(btnId){
@@ -54,6 +52,34 @@ const loadEvents = ()=>{
 
 }
 
+    /*     const btns = document.querySelectorAll('.btn');
+    for (const btn of btns){
+        btn.addEventListener('click', ()=> {
+            console.log("btn id: ", btn.id);
+            const btnId = cart.find (service => service.id == btn.id);
+            if(btnId){
+                console.log(btnId);
+                const qtys = document.querySelectorAll('.quantity');
+                for (const qty of qtys){
+                    qty.addEventListener('click', ()=> {
+                        console.log("qty id: ", qty.id);
+
+                        const qtyValue = document.getElementById(qty.id).value;
+                        btnId.quantity += parseInt(qtyValue);
+                        console.log(btnId.quantity);
+
+                        console.log("qty value: ", qtyValue);
+
+                        setQuantity();
+                        const saveLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
+                        saveLocal("cartList", JSON.stringify(cart));
+                    })
+                }
+            }
+        })
+    } */
+
+
             /* const serv = cart.find (service => service.id == btn.id);
                     if(serv){
                         serv.quantity = parseInt(serv.quantity) + parseInt(qty);
@@ -83,30 +109,7 @@ const loadEvents = ()=>{
                     const saveLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
                     saveLocal("cartList", JSON.stringify(cart));
                     */
-                
-        
-    
 
-
-const filterPricee = ()=> {
-    Services.sort((a, b) => {
-        if (filteredPrice.value === "lowerPrice") {
-            if (a.price > b.price)
-                return 1
-            if (a.price < b.price)
-                return -1
-            return 0
-        }
-        if (filteredPrice.value === "higherPrice") {
-            if (a.price > b.price)
-                return -1
-            if (a.price < b.price)
-                return 1
-            return 0
-        }
-    })
-    updateCart()
-}
 
 const loadServices = (Services)=>{
     const container = document.querySelector('#container');
@@ -125,27 +128,6 @@ const loadServices = (Services)=>{
         container.appendChild(div);
     }
     setQuantity();
-    loadEvents();
-}
-
-// PARA ORDENAR LOS PRECIOS (NUEVO)
-const filterPrice = () => {
-    Services.sort((a, b) => {
-        if (filPrice.value === "loPrice") {
-            if (a.price > b.price)
-                return 1
-            if (a.price < b.price)
-                return -1
-            return 0
-        }
-        if (filPrice.value === "hiPrice") {
-            if (a.price > b.price)
-                return -1
-            if (a.price < b.price)
-                return 1
-            return 0
-        }
-    }) 
     loadEvents();
 }
 

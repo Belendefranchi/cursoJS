@@ -34,7 +34,6 @@ main{
 }
 
 .p{
-    margin-bottom: 0px !important;
     margin-left: 2rem;
     margin-right: 2rem;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -98,16 +97,15 @@ table{
     margin-bottom: 2rem;
 }
 
-.thead{
-    margin-bottom: 1rem;
+.form{
+    padding-bottom: 3rem;
 }
 
-.tbody{
-    text-align: left;
+.purchase{
+    padding: 10px;
+    border-radius: 20px;
+    background-color: whitesmoke;
 }
-
-
-
 
 
 
