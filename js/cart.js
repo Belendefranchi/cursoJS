@@ -1,4 +1,4 @@
-const cartL = JSON.parse(localStorage.getItem("cartList"));
+const cartL = JSON.parse(localStorage.getItem("cartList")) || [];
 
 const checkOut = ()=> {
     
@@ -65,7 +65,7 @@ const btnDeleteItem = document.querySelectorAll('.btnDelete');
     for (const btn of btnDeleteItem){
         btn.addEventListener('click', ()=>{
             console.log("button id: ", btn.id)
-            let newCart = cartL.filter(service => service.id !== btn.id);
+            let newCart = cartL.filter(service => service.id !== btn.id ? service: "");
             updateCart(newCart);
             localStorage.setItem("cartList", JSON.stringify(newCart));
 /*             location.reload(true); */
