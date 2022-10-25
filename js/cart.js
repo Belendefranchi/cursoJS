@@ -94,7 +94,8 @@ const emptyCart = ()=>{
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Acpetar'
             })
-            location.reload(true);
+            window.location="../index.html";
+
         };
     })
 }
