@@ -95,7 +95,6 @@ const emptyCart = ()=>{
                 confirmButtonText: 'Acpetar'
             })
             window.location="../index.html";
-
         };
     })
 }
