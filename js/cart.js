@@ -77,7 +77,7 @@ const btnDeleteItem = document.querySelectorAll('.btnDelete');
 
 
 const emptyCart = ()=>{
-    if(cartL=[]){
+    if(cartL==[]){
         Swal.fire({
             title: 'Oh no!',
             text: "El carrito esta vacío",
