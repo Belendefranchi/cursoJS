@@ -88,6 +88,10 @@ main{
     color: black;
 }
 
+.btnDelete{
+    background-color: transparent;
+    border-color: transparent;
+}
 
 table{
     display: inline-block !important;

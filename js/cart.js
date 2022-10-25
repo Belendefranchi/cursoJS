@@ -1,4 +1,4 @@
-const cartL = JSON.parse(localStorage.getItem("cartList")) || [];
+let cartL = JSON.parse(localStorage.getItem("cartList")) || [];
 
 const checkOut = ()=> {
     
@@ -42,7 +42,7 @@ const updateCart = (cart)=>{
                             <td><h4 class="p">${serv.quantity}</h4></td>
                             <td><h4 class="p">$${serv.price}</h4></td>
                             <td><h4 class="p">$${serv.price*serv.quantity}</h4></td>
-                            <td><button class="btnsCart btnDelete" id="${serv.id}">Eliminar</button></td>`;
+                            <td><button class="btnDelete" id="${serv.id}"><img id="${serv.id}" src="../resources/icons/trash.png" on></img></button></td>`;
     }
     
     table.innerHTML += `<td><h3 class="p">Total:</h3></td>
@@ -65,38 +65,57 @@ const btnDeleteItem = document.querySelectorAll('.btnDelete');
     for (const btn of btnDeleteItem){
         btn.addEventListener('click', ()=>{
             console.log("button id: ", btn.id)
-            let newCart = cartL.filter(service => service.id !== btn.id ? service: "");
-            updateCart(newCart);
-            localStorage.setItem("cartList", JSON.stringify(newCart));
-/*             location.reload(true); */
+            let newCart = cartL.filter(service => service.id !== parseInt(btn.id));
+            if(newCart){
+                console.table(newCart);
+                updateCart(newCart);
+                localStorage.setItem("cartList", JSON.stringify(newCart));
+            }
+            location.reload(true);
         })
     }
 
 
 const emptyCart = ()=>{
-    Swal.fire({
-        title: 'Estas seguro de querer vaciar el carrito?',
-        text: "Si te arrepientes no podrás deshacerlo!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, vaciar el carrito!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            localStorage.removeItem('cartList');
-            Swal.fire({
-                title: 'Vaciado!',
-                text: 'Tu carrito ahora esta vacío',
-                icon: 'success',
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Acpetar'
-            })
-            window.location="../index.html";
-        };
-    })
+    if(cartL=[]){
+        Swal.fire({
+            title: 'Oh no!',
+            text: "El carrito esta vacío",
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location="../index.html";
+            };
+        })
+    }else{
+        Swal.fire({
+            title: 'Estas seguro de querer vaciar el carrito?',
+            text: "Si te arrepientes no podrás deshacerlo!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, vaciar el carrito!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem('cartList');
+                Swal.fire({
+                    title: 'Vaciado!',
+                    text: 'Tu carrito ahora esta vacío',
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Acpetar'
+                })
+                window.location="../index.html";
+            };
+        })
+    }
 }
 
 const btnEmptyCart = document.querySelector('.btnEmpty');
