@@ -4,20 +4,37 @@ const checkOut = ()=> {
     
     const btn = document.querySelector('#checkout')
     btn.addEventListener('click', ()=> {
-
-        Swal.fire({
-            title: 'Muchas gracias por tu compra!',
-            text: "Vuelve pronto!",
-            icon: 'success',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, continuar con la compra!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location="form.html";
-            };
-        })
+        if(cartL == 0){
+            console.log("true: el carrito esta vacio");
+            Swal.fire({
+                title: 'Oh no!',
+                text: "El carrito esta vacío",
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location="../index.html";
+                };
+            })
+        }else{
+            console.log("false: el carrito NO esta vacio")
+            Swal.fire({
+                title: 'Muchas gracias por tu compra!',
+                text: "Vuelve pronto!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, continuar con la compra!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location="form.html";
+                };
+            })
+        }
     })
 }
 
@@ -77,7 +94,7 @@ const btnDeleteItem = document.querySelectorAll('.btnDelete');
 
 
 const emptyCart = ()=>{
-    if(cartL==[]){
+    if(cartL == 0){
         Swal.fire({
             title: 'Oh no!',
             text: "El carrito esta vacío",
@@ -92,6 +109,7 @@ const emptyCart = ()=>{
             };
         })
     }else{
+        console.log("false: el carrito NO esta vacio")
         Swal.fire({
             title: 'Estas seguro de querer vaciar el carrito?',
             text: "Si te arrepientes no podrás deshacerlo!",

@@ -6,7 +6,6 @@ setQuantity();
 
 const btnEnviar = document.querySelector('#btnPurchase');
 btnEnviar.addEventListener('click', ()=>{
-    /* debugger */
     Form.push(new fillForm(inputName, inputLastName, inputEmail, inputPhone, inputAddress, inputAddress2, inputCity, inputState, inputZip))
     const saveLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
     saveLocal("purchaseForm", JSON.stringify(Form));

@@ -1,41 +1,43 @@
-const loadEvents = ()=>{
-
+const getSelectValue = (id) =>{
     const qtys = document.querySelectorAll(".quantity");
     for (const qty of qtys){
-        qty.addEventListener('change', ()=>{
-            const select = document.getElementById(qty.id).value;
-            const qtyId = Services.find (service => service.id  == qty.id);
-            if(qtyId){
-                console.log("qty id: " + qty.id);
-                console.log("value: " + select);
-                const btns = document.querySelectorAll('.btn');
-                for (const btn of btns){
-                    btn.addEventListener('click', ()=>{
-                        const btnId = cart.find (service => service.id == btn.id);
-                        if(btnId){
-                            console.log("true btn id: " + btn.id);
-                            btnId.quantity += parseInt(select);
-                        }else{
-                                const btnId = Services.find (service => service.id == btn.id);
-                                if(btnId){
-                                console.log("false btn id: " + btn.id);
-                                let newServ = {
-                                    id: btnId.id,
-                                    name: btnId.name,
-                                    description: btnId.description,
-                                    price: btnId.price,
-                                    image: btnId.image,
-                                    quantity: parseInt(select),
-                                }
-                            cart.push(newServ);
-                            location.reload(true);
-                            }
-                        }
-                        setQuantity();
-                        const saveLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
-                        saveLocal("cartList", JSON.stringify(cart));
-                    })
+        if(qty.id == id && qty.value != "Elegir"){
+            return qty.value;
+        }
+    }
+    return false;
+}
+
+const loadEvents = ()=>{
+    const btns = document.querySelectorAll('.btn');
+    for (const btn of btns){
+        btn.addEventListener('click', ()=>{
+            const select = getSelectValue(btn.id);
+            if(select){
+                console.log('select value from function: ', select);
+                const btnId = cart.find (service => service.id == btn.id);
+                if(btnId){
+                    console.log("true btn id: " + btn.id);
+                    btnId.quantity += parseInt(select);
+                }else{
+                    const btnId = Services.find (service => service.id == btn.id);
+                    if(btnId){
+                    console.log("false btn id: " + btn.id);
+                    let newServ = {
+                        id: btnId.id,
+                        name: btnId.name,
+                        description: btnId.description,
+                        price: btnId.price,
+                        image: btnId.image,
+                        quantity: parseInt(select),
+                    }
+                    cart.push(newServ);
+                    //location.reload(true);
+                    }
                 }
+                setQuantity();
+                const saveLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
+                saveLocal("cartList", JSON.stringify(cart));
             }
         })
     }
