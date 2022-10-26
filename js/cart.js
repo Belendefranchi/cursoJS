@@ -63,7 +63,9 @@ const updateCart = (cart)=>{
                             <div>
                                 <br>
                                 <br>
-                                <button class="btnsCart"><a src="../index.html">Volver</a></button>
+                                <a class="a" href="../index.html">
+                                    <button class="btnsCart">Volver</button>
+                                </a>
                             </div>`;
     }
     cartContainer.appendChild(table);
