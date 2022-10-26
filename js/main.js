@@ -14,15 +14,12 @@ const loadEvents = ()=>{
         btn.addEventListener('click', ()=>{
             const select = getSelectValue(btn.id);
             if(select){
-                console.log('select value from function: ', select);
                 const btnId = cart.find (service => service.id == btn.id);
                 if(btnId){
-                    console.log("true btn id: " + btn.id);
                     btnId.quantity += parseInt(select);
                 }else{
                     const btnId = Services.find (service => service.id == btn.id);
                     if(btnId){
-                    console.log("false btn id: " + btn.id);
                     let newServ = {
                         id: btnId.id,
                         name: btnId.name,
@@ -32,7 +29,6 @@ const loadEvents = ()=>{
                         quantity: parseInt(select),
                     }
                     cart.push(newServ);
-                    //location.reload(true);
                     }
                 }
                 setQuantity();
@@ -75,7 +71,6 @@ const getData = async () => {
     try{
         const response = await fetch('bbdd/services.json');
         const data = await response.json();
-        console.table(data);
         loadServices(data);
         Services.push(...data);
     } catch (e){

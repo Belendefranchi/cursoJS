@@ -1,7 +1,5 @@
 let cartP = JSON.parse(localStorage.getItem("cartList"));
 
-console.table(cartP);
-
 setQuantity();
 
 const btnEnviar = document.querySelector('#btnPurchase');
@@ -58,7 +56,6 @@ const inputCity = document.querySelector('#inputCity').value;
 const inputState = document.querySelector('#inputState').value;
 const inputZip = document.querySelector('#inputZip').value;
 
-
 class fillForm {
     constructor(name, lastName, email, phone, address, address2, city, state, zip){
         this.name = name
@@ -85,8 +82,5 @@ class fillForm {
                 zip: this.zip,
             }
         ];
-        console.table(Form);
     }
 }
-
-/* localStorage.removeItem('cartList'); */
